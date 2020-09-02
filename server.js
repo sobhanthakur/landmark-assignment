@@ -13,6 +13,8 @@ connectDB();
 // This helps to pass the request body to the controllers
 app.use(express.json({ extended: false }));
 
+app.use("/api/models", require("./api/controllers/Model"));
+
 // Serve static assets in production
 if (process.env.NODE_ENV === "production") {
   // Set static folder

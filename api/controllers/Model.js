@@ -2,21 +2,23 @@ const express = require("express");
 const router = express.Router();
 const { check, validationResult } = require("express-validator");
 
-const userService = require("../services/users");
+const modelService = require("../services/Model");
 
-// @route    POST api/users/register
-// @desc     Register user
+// @route    POST api/models
+// @desc     Register New Model
 // @access   Public
 
 router.post(
-  "/register",
+  "/",
   [
     check("name", "Name must be present").not().isEmpty(),
-    check("email", "Please Include a valid email").isEmail(),
-    check(
-      "password",
-      "Please enter a password with 6 or mote characters"
-    ).isLength({ min: 6 }),
+    check("modelwear", "Model Wear must be present").not().isEmpty(),
+    check("height", "Height must be present").not().isEmpty(),
+    check("bust", "Bust must be present").not().isEmpty(),
+    check("waist", "Waist must be present").not().isEmpty(),
+    check("highhip", "High Hip must be present").not().isEmpty(),
+    check("lowhip", "Low Hip must be present").not().isEmpty(),
+    check("images", "Images must be present").not().isEmpty(),    
   ],
   (req, res) => {
     const errors = validationResult(req);
@@ -26,7 +28,7 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    return userService.register(req, res);
+    return modelService.register(req, res);
   }
 );
 

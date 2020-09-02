@@ -12,23 +12,23 @@ const modelSchema = new mongoose.Schema(
       default: "M",
     },
     height: {
-      type: Integer,
+      type: Number,
       required: true,
     },
     bust: {
-      type: Integer,
+      type: Number,
       required: true,
     },
     waist: {
-      type: Integer,
+      type: Number,
       required: true,
     },
     highhip: {
-      type: Integer,
+      type: Number,
       required: true,
     },
     lowhip: {
-      type: Integer,
+      type: Number,
       required: true,
     },
     images: [
