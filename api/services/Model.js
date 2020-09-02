@@ -32,7 +32,7 @@ const fetchModels = async (req, res) => {
 
     var newFilter = {};
 
-    if (filters.hasOwnProperty("name")) {
+    if (filters.hasOwnProperty("name") && filters.name !== "") {
       newFilter["name"] = { $regex: filters.name, $options: "i" };
     }
 
@@ -68,4 +68,34 @@ const numCalculation = (obj) => {
   };
 };
 
-module.exports = { register, fetchModels };
+/*
+ * Update Model
+ */
+const update = async (req, res) => {
+  try {
+    // See if user already exists
+    let model = await Model.findById(req.params.id);
+
+    if (!model) {
+      return res.status(404).json({ errors: [{ msg: "Model not found" }] });
+    }
+
+    for (var prop in req.body) {
+      if (req.body.hasOwnProperty(prop)) {
+        model[prop] = req.body[prop];
+      }
+    }
+
+    // Save to DB (Commit)
+    await model.save();
+
+    res.json(model);
+  } catch (err) {
+    console.error(err.message);
+    return res.status(500).send({ msg: err.message });
+  }
+
+  return res;
+};
+
+module.exports = { register, fetchModels, update };
