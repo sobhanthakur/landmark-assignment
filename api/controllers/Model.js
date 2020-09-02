@@ -32,4 +32,15 @@ router.post(
   }
 );
 
+// @route    GET api/models/:filters
+// @desc     Get All models
+// @access   Public
+
+router.get(
+    "/:filters",
+    (req, res) => {  
+      return modelService.fetchModels(req, res);
+    }
+  );
+
 module.exports = router;
