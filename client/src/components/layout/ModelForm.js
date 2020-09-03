@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { updateModel, addModel } from "../../redux/actions/modelAction";
+import ImageUploader from "react-images-upload";
 import {
   Col,
   Row,
@@ -35,9 +36,9 @@ const ModelForm = ({ model }) => {
   // Set States
   const [formData, setFormData] = useState(initialState);
   const [loading, setLoading] = useState(false);
+  const [imageloading, setImageLoading] = useState(false);
   const { name, modelwear, height, bust, waist, highhip, lowhip } = formData;
   const [images, setImages] = useState([]);
-  const [fields, setFields] = useState([{ value: null }]);
 
   // On changing form data
   const changeFormData = (e) =>
@@ -59,24 +60,19 @@ const ModelForm = ({ model }) => {
       await dispatch(addModel(formData));
       setFormData(initialState);
       setImages([]);
-      setFields([{ value: null }]);
     }
     setLoading(false);
   };
 
   const onChangeFile = async (e) => {
-    const location = await Upload(e.target.files[0]);
+    setImageLoading(true);
+    const location = await Upload(e[0]);
     setImages(
       images.concat({
         url: location.Location,
       })
     );
-  };
-
-  const handleAdd = () => {
-    const values = [...fields];
-    values.push({ value: null });
-    setFields(values);
+    setImageLoading(false);
   };
 
   return (
@@ -88,25 +84,18 @@ const ModelForm = ({ model }) => {
               <Button color="info">Go Back</Button>
             </a>
           </div>
-          {fields.map((field, idx) => {
-            return (
-              <div key={`${field}-${idx}`}>
-                <div className="input-group">
-                  <div className="custom-file">
-                    <input
-                      type="file"
-                      className="custom-file-input"
-                      onChange={(e) => onChangeFile(e)}
-                    />
-                    <label className="custom-file-label">
-                      Upload Here
-                    </label>
-                  </div>
-                  <Button color="info" onClick={e => handleAdd()}>+</Button>
-                </div>
-              </div>
-            );
-          })}
+
+          <div>
+            <ImageUploader
+              withIcon={true}
+              buttonText={
+                imageloading ? <Spinner size="sm" /> : "Choose images"
+              }
+              onChange={(e) => onChangeFile(e)}
+              imgExtension={[".jpg", ".gif", ".png", ".gif"]}
+              maxFileSize={5242880}
+            />
+          </div>
         </>
       )}
       <Form onSubmit={(e) => onSubmit(e)}>
