@@ -37,6 +37,7 @@ const ModelForm = ({ model }) => {
   const [loading, setLoading] = useState(false);
   const { name, modelwear, height, bust, waist, highhip, lowhip } = formData;
   const [images, setImages] = useState([]);
+  const [fields, setFields] = useState([{ value: null }]);
 
   // On changing form data
   const changeFormData = (e) =>
@@ -58,6 +59,7 @@ const ModelForm = ({ model }) => {
       await dispatch(addModel(formData));
       setFormData(initialState);
       setImages([]);
+      setFields([{ value: null }]);
     }
     setLoading(false);
   };
@@ -70,6 +72,13 @@ const ModelForm = ({ model }) => {
       })
     );
   };
+
+  const handleAdd = () => {
+    const values = [...fields];
+    values.push({ value: null });
+    setFields(values);
+  };
+
   return (
     <>
       {!model && (
@@ -79,22 +88,25 @@ const ModelForm = ({ model }) => {
               <Button color="info">Go Back</Button>
             </a>
           </div>
-
-          <div className="input-group">
-            <div className="input-group-prepend">
-              <span className="input-group-text">Upload</span>
-            </div>
-            <div className="custom-file">
-              <input
-                type="file"
-                className="custom-file-input"
-                onChange={(e) => onChangeFile(e)}
-              />
-              <label className="custom-file-label">
-                Browse/Drop your file here
-              </label>
-            </div>
-          </div>
+          {fields.map((field, idx) => {
+            return (
+              <div key={`${field}-${idx}`}>
+                <div className="input-group">
+                  <div className="custom-file">
+                    <input
+                      type="file"
+                      className="custom-file-input"
+                      onChange={(e) => onChangeFile(e)}
+                    />
+                    <label className="custom-file-label">
+                      Upload Here
+                    </label>
+                  </div>
+                  <Button color="info" onClick={e => handleAdd()}>+</Button>
+                </div>
+              </div>
+            );
+          })}
         </>
       )}
       <Form onSubmit={(e) => onSubmit(e)}>
