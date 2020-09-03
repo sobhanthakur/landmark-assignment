@@ -7,7 +7,7 @@ const EditModel = ({ model }) => {
   const toggle = () => setModal(!modal);
   return (
     <div>
-      <Button color="link" onClick={toggle}>
+      <Button color="link" size="sm" onClick={toggle}>
         Edit Model Info
       </Button>
       <Modal isOpen={modal} toggle={toggle}>

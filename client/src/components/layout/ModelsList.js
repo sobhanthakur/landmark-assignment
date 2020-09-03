@@ -15,12 +15,20 @@ const ModelsList = () => {
   return (
     <>
       {state.models.loading ? (
-        <Spinner color="danger" />
+        <Spinner type="grow" color="info" className="d-block m-auto" />
       ) : (
         state.models.models.map((model) => (
           <Container key={model._id}>
-            {model.name}
-            <Row>
+            <span
+              style={{
+                color: "#8E7B60",
+                textTransform: "uppercase",
+                fontWeight: "bold",
+              }}
+            >
+              {model.name}
+            </span>
+            <Row id="customFont">
               <Col xs="3">
                 <Row>
                   <img
