@@ -92,7 +92,7 @@ const ModelForm = ({ model }) => {
                 imageloading ? <Spinner size="sm" /> : "Choose images"
               }
               onChange={(e) => onChangeFile(e)}
-              imgExtension={[".jpg", ".gif", ".png", ".gif"]}
+              imgExtension={[".jpg", "jpeg",".gif", ".png", ".gif"]}
               maxFileSize={5242880}
             />
           </div>
