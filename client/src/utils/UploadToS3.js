@@ -1,20 +1,21 @@
 import * as AWSService from "aws-sdk";
+import * as Constants from "../constants/Constants";
 export const Upload = (file) => {
   AWSService.config.update({
-    region: process.env.REACT_APP_REGION,
+    region: Constants.REGION,
     credentials: new AWSService.CognitoIdentityCredentials({
-      IdentityPoolId: process.env.REACT_APP_POOL_ID,
+      IdentityPoolId: Constants.POOL_ID,
     }),
   });
 
   const s3 = new AWSService.S3({
     apiVersion: "2006-03-01",
-    params: { Bucket: process.env.REACT_APP_BUCKET_NAME },
+    params: { Bucket: Constants.BUCKET_NAME },
   });
   return new Promise((resolve, reject) => {
     s3.upload({
         Key: file.name,
-        Bucket: process.env.REACT_APP_BUCKET_NAME,
+        Bucket: Constants.BUCKET_NAME,
         Body: file,
         ContentType: "image/jpeg",
         ACL: "public-read",
