@@ -33,7 +33,7 @@ const ModelsList = () => {
                 <Row>
                   <img
                     id="customImage"
-                    src="https://4.bp.blogspot.com/-gXF6kT8-pjM/V7Hq4i9GOwI/AAAAAAAABDY/aIf2qPT4ZP8XB8TjP8sjYIHs3juUCJ3JwCLcB/s640/smaransahu.jpg"
+                    src={model.images[0].url}
                     alt=""
                     width="200px"
                     height="200px"

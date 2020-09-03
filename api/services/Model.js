@@ -52,7 +52,9 @@ const fetchModels = async (req, res) => {
       newFilter["waist"] = numCalculation(filters.waist);
     }
 
-    const model = await Model.find(newFilter);
+    const model = await Model.find(newFilter).sort({
+      createdAt: -1,
+    });
     res.json(model);
   } catch (err) {
     return res.status(500).send({ msg: err.message });

@@ -1,4 +1,4 @@
-import { LOAD_MODELS, UPDATE_MODEL } from "../types";
+import { LOAD_MODELS, UPDATE_MODEL, ADD_MODEL } from "../types";
 const initialState = {
   loading: true,
   models: [],
@@ -20,6 +20,12 @@ const modelReducer = (state = initialState, action) => {
         models: state.models.map((model) =>
           model._id === payload._id ? (model = payload) : model
         ),
+      };
+    case ADD_MODEL:
+      return {
+        ...state,
+        loading: false,
+        models: [payload, ...state.models],
       };
     default:
       return state;

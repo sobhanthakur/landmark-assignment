@@ -8,7 +8,6 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
-  ModalFooter,
   Form,
 } from "reactstrap";
 import { useDispatch } from "react-redux";
@@ -72,12 +71,18 @@ const FilterComponent = () => {
 
   return (
     <div className="mb-3">
-      <Button color="info" onClick={toggle}>
+      <Button color="info" onClick={toggle} size="sm">
         Apply Filters
       </Button>
-      <Button color="danger" className="ml-3" onClick={resetFilters}>
+      <Button color="danger" className="ml-1" onClick={resetFilters} size="sm">
         Reset Filters
       </Button>
+      <a href="/register">
+        <Button color="success" className="ml-1" size="sm">
+          Add new Model
+        </Button>
+      </a>
+
       <Modal isOpen={modal} toggle={toggle} size="sm">
         <ModalHeader toggle={toggle}>Filters</ModalHeader>
         <ModalBody>
@@ -140,7 +145,7 @@ const FilterComponent = () => {
                   onChange={(e) => setWaistcheck(!waistcheck)}
                   checked={waistcheck}
                 />{" "}
-                Waist
+                Waist (In cm.)
               </Label>
             </FormGroup>
             {waistcheck && (
@@ -182,7 +187,7 @@ const FilterComponent = () => {
                   onChange={(e) => setBustcheck(!bustcheck)}
                   checked={bustcheck}
                 />{" "}
-                Bust
+                Bust (In cm.)
               </Label>
             </FormGroup>
             {bustcheck && (
@@ -224,7 +229,7 @@ const FilterComponent = () => {
                   onChange={(e) => setHeightcheck(!heightcheck)}
                   checked={heightcheck}
                 />{" "}
-                Height
+                Height (In cm.)
               </Label>
             </FormGroup>
             {heightcheck && (

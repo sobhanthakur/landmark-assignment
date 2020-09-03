@@ -2,15 +2,16 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 
 import dashboard from "../layout/Dashboard";
+import Register from "../layout/Register";
 
 const Routes = () => {
   
   return (
     <div className="container">
       {/* <AlertComponent></AlertComponent> */}
-      {/* <NavbarComponent></NavbarComponent> */}
       <Switch>
         <Route exact path="/" component={dashboard} />
+        <Route exact path="/register" component={Register} />
       </Switch>
     </div>
   );
