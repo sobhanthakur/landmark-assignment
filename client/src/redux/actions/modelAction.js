@@ -1,5 +1,6 @@
 import axios from "axios";
 import { LOAD_MODELS, UPDATE_MODEL, ADD_MODEL } from "../types";
+import { setAlert } from "./alertAction";
 // Load Models
 export const getModels = (payload = {}) => async (dispatch) => {
   try {
@@ -12,7 +13,7 @@ export const getModels = (payload = {}) => async (dispatch) => {
       payload: res.data,
     });
   } catch (err) {
-    // dispatch(setAlert("Something went wrong", "danger", 4000));
+    dispatch(setAlert("Something went wrong", "danger", 4000));
   }
 };
 
@@ -25,9 +26,9 @@ export const updateModel = (id, payload) => async (dispatch) => {
       type: UPDATE_MODEL,
       payload: res.data,
     });
-    // dispatch(setAlert("Student Updated", "success", 4000));
+    dispatch(setAlert("Model Updated", "success", 4000));
   } catch (err) {
-    // dispatch(setAlert("Something went wrong", "danger", 4000));
+    dispatch(setAlert("Something went wrong", "danger", 4000));
   }
 };
 
@@ -40,8 +41,8 @@ export const addModel = (payload) => async (dispatch) => {
       type: ADD_MODEL,
       payload: res.data,
     });
-    // dispatch(setAlert("Student Updated", "success", 4000));
+    dispatch(setAlert("New Model Updated", "success", 4000));
   } catch (err) {
-    // dispatch(setAlert("Something went wrong", "danger", 4000));
+    dispatch(setAlert("Something went wrong", "danger", 4000));
   }
 };

@@ -3,12 +3,13 @@ import { Route, Switch } from "react-router-dom";
 
 import dashboard from "../layout/Dashboard";
 import Register from "../layout/Register";
+import AlertComponent from "../layout/AlertComponent";
 
 const Routes = () => {
   
   return (
     <div className="container">
-      {/* <AlertComponent></AlertComponent> */}
+      <AlertComponent></AlertComponent>
       <Switch>
         <Route exact path="/" component={dashboard} />
         <Route exact path="/register" component={Register} />
