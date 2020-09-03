@@ -11,7 +11,7 @@ const EditModel = ({ model }) => {
         Edit Model Info
       </Button>
       <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle}>Modal title</ModalHeader>
+        <ModalHeader toggle={toggle}>Edit Model Info</ModalHeader>
         <ModalBody>
           <ModelForm model={model} />
         </ModalBody>
