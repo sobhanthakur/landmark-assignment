@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Row, Col, Spinner, Container } from "reactstrap";
 import { getModels } from "../../redux/actions/modelAction";
 import { useDispatch, useSelector } from "react-redux";
+import EditModel from "./EditModel";
 
 const ModelsList = () => {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ const ModelsList = () => {
       ) : (
         state.models.models.map((model) => (
           <Container key={model._id}>
+            {model.name}
             <Row>
               <Col xs="3">
                 <Row>
@@ -90,9 +92,11 @@ const ModelsList = () => {
                     </h6>
                   </Col>
                 </Row>
+                <Row>
+                  <EditModel model={model} />
+                </Row>
               </Col>
             </Row>
-            {model.name}
             <hr />
           </Container>
         ))
