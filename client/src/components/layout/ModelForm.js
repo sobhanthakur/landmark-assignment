@@ -56,6 +56,10 @@ const ModelForm = ({ model }) => {
         setLoading(false);
         return;
       }
+      if (imageloading) {
+        alert("Image is uploading. Please wait");
+        return;
+      }
       formData["images"] = images;
       await dispatch(addModel(formData));
       setFormData(initialState);
@@ -66,13 +70,18 @@ const ModelForm = ({ model }) => {
 
   const onChangeFile = async (e) => {
     setImageLoading(true);
-    const location = await Upload(e[0]);
-    setImages(
-      images.concat({
-        url: location.Location,
-      })
-    );
-    setImageLoading(false);
+    try {
+      const location = await Upload(e[0]);
+      setImages(
+        images.concat({
+          url: location.Location,
+        })
+      );
+    } catch(err) {
+      console.log(err)
+    } finally {
+      setImageLoading(false);
+    }
   };
 
   return (
