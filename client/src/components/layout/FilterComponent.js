@@ -29,16 +29,20 @@ const initialState = {
     to: "",
   },
 };
+
+const initialCheck = {
+  namecheck: false,
+  modelwearcheck: false,
+  waistcheck: false,
+  bustcheck: false,
+  heightcheck: false,
+};
 const FilterComponent = () => {
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
 
   // Filter Checkboxes
-  const [namecheck, setNamecheck] = useState(false);
-  const [modelwearcheck, setModelwearcheck] = useState(false);
-  const [waistcheck, setWaistcheck] = useState(false);
-  const [bustcheck, setBustcheck] = useState(false);
-  const [heightcheck, setHeightcheck] = useState(false);
+  const [check, setCheck] = useState(initialCheck);
 
   const dispatch = useDispatch();
 
@@ -50,22 +54,18 @@ const FilterComponent = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     let obj = {};
-    namecheck && (obj["name"] = name);
-    modelwearcheck && (obj["modelwear"] = modelwear);
-    waistcheck && (obj["waist"] = waist);
-    bustcheck && (obj["bust"] = bust);
-    heightcheck && (obj["height"] = height);
+    check.namecheck && (obj["name"] = name);
+    check.modelwearcheck && (obj["modelwear"] = modelwear);
+    check.waistcheck && (obj["waist"] = waist);
+    check.bustcheck && (obj["bust"] = bust);
+    check.heightcheck && (obj["height"] = height);
     dispatch(getModels(obj));
     toggle();
   };
 
   const resetFilters = () => {
+    setCheck(initialCheck);
     setFilter(initialState);
-    setModelwearcheck(false);
-    setNamecheck(false);
-    setHeightcheck(false);
-    setWaistcheck(false);
-    setBustcheck(false);
     dispatch(getModels());
   };
 
@@ -92,14 +92,14 @@ const FilterComponent = () => {
                 <Input
                   type="checkbox"
                   onChange={(e) => {
-                    setNamecheck(!namecheck);
+                    setCheck({ ...check, namecheck: !check.namecheck });
                   }}
-                  checked={namecheck}
+                  checked={check.namecheck}
                 />{" "}
                 Name
               </Label>
             </FormGroup>
-            {namecheck && (
+            {check.namecheck && (
               <FormGroup>
                 <Input
                   type="text"
@@ -108,7 +108,7 @@ const FilterComponent = () => {
                   onChange={(e) =>
                     setFilter({ ...filter, name: e.target.value })
                   }
-                  required={namecheck}
+                  required={check.namecheck}
                 />
               </FormGroup>
             )}
@@ -116,13 +116,18 @@ const FilterComponent = () => {
               <Label check>
                 <Input
                   type="checkbox"
-                  onChange={(e) => setModelwearcheck(!modelwearcheck)}
-                  checked={modelwearcheck}
+                  onChange={(e) =>
+                    setCheck({
+                      ...check,
+                      modelwearcheck: !check.modelwearcheck,
+                    })
+                  }
+                  checked={check.modelwearcheck}
                 />{" "}
                 Model Wear
               </Label>
             </FormGroup>
-            {modelwearcheck && (
+            {check.modelwearcheck && (
               <FormGroup>
                 <Input
                   type="select"
@@ -142,20 +147,22 @@ const FilterComponent = () => {
               <Label check>
                 <Input
                   type="checkbox"
-                  onChange={(e) => setWaistcheck(!waistcheck)}
-                  checked={waistcheck}
+                  onChange={(e) =>
+                    setCheck({ ...check, waistcheck: !check.waistcheck })
+                  }
+                  checked={check.waistcheck}
                 />{" "}
                 Waist (In cm.)
               </Label>
             </FormGroup>
-            {waistcheck && (
+            {check.waistcheck && (
               <FormGroup row>
                 <Col sm={6}>
                   <Input
                     type="number"
                     placeholder="From"
                     value={waist.from}
-                    required={waistcheck}
+                    required={check.waistcheck}
                     onChange={(e) =>
                       setFilter({
                         ...filter,
@@ -169,7 +176,7 @@ const FilterComponent = () => {
                     type="number"
                     placeholder="To"
                     value={waist.to}
-                    required={waistcheck}
+                    required={check.waistcheck}
                     onChange={(e) =>
                       setFilter({
                         ...filter,
@@ -184,20 +191,22 @@ const FilterComponent = () => {
               <Label check>
                 <Input
                   type="checkbox"
-                  onChange={(e) => setBustcheck(!bustcheck)}
-                  checked={bustcheck}
+                  onChange={(e) =>
+                    setCheck({ ...check, bustcheck: !check.bustcheck })
+                  }
+                  checked={check.bustcheck}
                 />{" "}
                 Bust (In cm.)
               </Label>
             </FormGroup>
-            {bustcheck && (
+            {check.bustcheck && (
               <FormGroup row>
                 <Col sm={6}>
                   <Input
                     type="number"
                     placeholder="From"
                     value={bust.from}
-                    required={bustcheck}
+                    required={check.bustcheck}
                     onChange={(e) =>
                       setFilter({
                         ...filter,
@@ -211,7 +220,7 @@ const FilterComponent = () => {
                     type="number"
                     placeholder="To"
                     value={bust.to}
-                    required={bustcheck}
+                    required={check.bustcheck}
                     onChange={(e) =>
                       setFilter({
                         ...filter,
@@ -226,20 +235,22 @@ const FilterComponent = () => {
               <Label check>
                 <Input
                   type="checkbox"
-                  onChange={(e) => setHeightcheck(!heightcheck)}
-                  checked={heightcheck}
+                  onChange={(e) =>
+                    setCheck({ ...check, heightcheck: !check.heightcheck })
+                  }
+                  checked={check.heightcheck}
                 />{" "}
                 Height (In cm.)
               </Label>
             </FormGroup>
-            {heightcheck && (
+            {check.heightcheck && (
               <FormGroup row>
                 <Col sm={6}>
                   <Input
                     type="number"
                     placeholder="From"
                     value={height.from}
-                    required={heightcheck}
+                    required={check.heightcheck}
                     onChange={(e) =>
                       setFilter({
                         ...filter,
@@ -253,7 +264,7 @@ const FilterComponent = () => {
                     type="number"
                     placeholder="To"
                     value={height.to}
-                    required={heightcheck}
+                    required={check.heightcheck}
                     onChange={(e) =>
                       setFilter({
                         ...filter,
